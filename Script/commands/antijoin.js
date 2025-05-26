@@ -1,22 +1,29 @@
 module.exports.config = {
-    name: "antijoin",
+    name: "قفل",
     version: "1.0.0",
-    credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
+    credits: "يونو",
     hasPermssion: 1,
-    description: "Turn off antijoin",
+    description: "تفعيل أو إيقاف خاصية منع الانضمام",
     usages: "antijoin on/off",
-    commandCategory: "system",
+    commandCategory: "النظام",
     cooldowns: 0
 };
 
 module.exports.run = async({ api, event, Threads}) => {
     const info = await api.getThreadInfo(event.threadID);
     if (!info.adminIDs.some(item => item.id == api.getCurrentUserID())) 
-      return api.sendMessage('[ 𝐀𝐍𝐓𝐈 𝐉𝐎𝐈𝐍 ] » 𝗡𝗲𝗲𝗱 𝗴𝗿𝗼𝘂𝗽 𝗮𝗱𝗺𝗶𝗻 𝗽𝗲𝗿𝗺𝗶𝘀𝘀𝗶𝗼𝗻𝘀, 𝗽𝗹𝗲𝗮𝘀𝗲 𝗮𝗱𝗱 𝗮𝗻𝗱 𝘁𝗿𝘆 𝗮𝗴𝗮𝗶𝗻', event.threadID, event.messageID);
+        return api.sendMessage('🛑 [ منع الانضمام ] ➤ يجب أن أكون أدمن في المجموعة عشان أقدر أشتغل! أضفني أدمن وجرب ثاني.', event.threadID, event.messageID);
+    
     const data = (await Threads.getData(event.threadID)).data || {};
     if (typeof data.newMember == "undefined" || data.newMember == false) data.newMember = true;
     else data.newMember = false;
+
     await Threads.setData(event.threadID, { data });
-      global.data.threadData.set(parseInt(event.threadID), data);
-    return api.sendMessage(`[ 𝐀𝐍𝐓𝐈 𝐉𝐎𝐈𝐍 ] » 𝗜𝗺𝗽𝗹𝗲𝗺𝗲𝗻𝘁 ${(data.newMember == true) ? "𝗢𝗻" : "𝗢𝗳𝗳"} 𝗦𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹 𝗔𝗻𝘁𝗶 𝗝𝗼𝗶𝗻 ✅`, event.threadID, event.messageID);
+    global.data.threadData.set(parseInt(event.threadID), data);
+
+    return api.sendMessage(
+        `${data.newMember == true ? "✅ تم تفعيل" : "❌ تم إيقاف"} خاصية *منع الانضمام* بنجاح! 
+استمتعوا بالمجموعة بأمان أكثر! 🌟`,
+        event.threadID, event.messageID
+    );
 }
