@@ -1,22 +1,31 @@
 module.exports.config = {
-    name: "antiout",
+    name: "ارجاع",
     version: "1.0.0",
-    credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
+    credits: "يونو",
     hasPermssion: 1,
-    description: "Turn off antiout",
-    usages: "antiout on/off",
-    commandCategory: "system",
+    description: "تفعيل أو إيقاف خاصية منع الخروج",
+    usages: "ارجاع on/off",
+    commandCategory: "النظام",
     cooldowns: 0
 };
 
-module.exports.run = async({ api, event, Threads}) => {
+module.exports.run = async ({ api, event, Threads }) => {
     let data = (await Threads.getData(event.threadID)).data || {};
-    if (typeof data["antiout"] == "undefined" || data["antiout"] == false) data["antiout"] = true;
-    else data["antiout"] = false;
-    
+
+    if (typeof data["ارجاع"] == "undefined" || data["ارجاع"] == false) {
+        data["ارجاع"] = true;
+    } else {
+        data["ارجاع"] = false;
+    }
+
     await Threads.setData(event.threadID, { data });
     global.data.threadData.set(parseInt(event.threadID), data);
-    
-    return api.sendMessage(`✅ Done ${(data["antiout"] == true) ? "turn on" : "Turn off"} successful antiout!`, event.threadID);
 
-}
+    return api.sendMessage(
+        `${data["ارجاع"] == true
+            ? "✅ واااو! خاصية *منع الخروج* مفعلة! 🚪❌ ما في مهرب من المجموعة! استمتعوا بالبقاء!"
+            : "❌ تم تعطيل خاصية *منع الخروج*! الباب مفتوح والكل يقدر يروح وين ما يريد 🚪✨"
+        }`,
+        event.threadID
+    );
+};
