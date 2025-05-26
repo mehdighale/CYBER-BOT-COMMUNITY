@@ -1,22 +1,22 @@
 module.exports.config = {
-	name: "coin",
+	name: "رصيد",
 	version: "1.0.2",
 	hasPermssion: 0,
 	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
-	description: "Check the amount of yourself or the person tagged",
+	description: "رصيدك او رصيد شخص بالطاغ",
 	commandCategory: "economy",
-	usages: "[Tag]",
+	usages: "[طاغ]",
 	cooldowns: 5
 };
 
 module.exports.languages = {
 	"vi": {
-		"sotienbanthan": "Số tiền bạn đang có: %1$",
-		"sotiennguoikhac": "Số tiền của %1 hiện đang có là: %2$"
+		"sotienbanthan": "رصيدك هو: %1$",
+		"sotiennguoikhac": "رصيد %1  هو: %2$"
 	},
 	"en": {
-		"sotienbanthan": "Your current balance: %1$",
-		"sotiennguoikhac": "%1's current balance: %2$."
+		"sotienbanthan": "رصيدك هو: %1$",
+		"sotiennguoikhac": "رصيد %1' هو: %2$."
 	}
 }
 
