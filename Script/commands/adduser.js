@@ -1,5 +1,5 @@
 module.exports.config = {
-	name: "adduser",
+	name: "اضف",
 	version: "2.4.3",
 	hasPermssion: 0,
 	credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
@@ -36,17 +36,17 @@ module.exports.run = async function ({ api, event, args }) {
 
 	async function adduser(id, name) {
 		id = parseInt(id);
-		if (participantIDs.includes(id)) return out(`${name ? name : "Member"} are already in the group.`);
+		if (participantIDs.includes(id)) return out(`${name ? name : "Member"} موجود هوون!اذا بدك اطرده و اضيفه مرة ثانية🙃.`);
 		else {
 			var admins = adminIDs.map(e => parseInt(e.id));
 			try {
 				await api.addUserToGroup(id, threadID);
 			}
 			catch {
-				return out(`Can't add ${name ? name : "user"} to group.`);
+				return out(`لم استطع اضافة ${name ? name : "user"} للمجموعة\n\nسيموت في الخارج من البرد😔💔.`);
 			}
-			if (approvalMode === true && !admins.includes(botID)) return out(`Add ${name ? name : "member"} to the approved list !`);
-			else return out(`Added ${name ? name : "member"} to group !`)
+			if (approvalMode === true && !admins.includes(botID)) return out(`تم اضافة ${name ? name : "member"}الى قائمة الطلبات\n\n سينتظر كثيرا حتى يقبله الادمن👀  !`);
+			else return out(`تم اضافة ${name ? name : "member"} منووور في كروبي🤭 !`)
 		}
 	}
-    }
+																																																																																																																																																																																																																																																																																																																																																																																						       }
