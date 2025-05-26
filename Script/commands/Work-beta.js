@@ -1,117 +1,135 @@
-
 module.exports.config = {
-    name: "job",
-    version: "1.0.2",
+    name: "عمل",
+    version: "1.0.3",
     hasPermssion: 0,
-    credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️", 
-    description: "",
-    commandCategory: "Economy",
+    credits: "يونو", 
+    description: "مركز الوظائف لتربح كوينز بطريقة ممتعة",
+    commandCategory: "اقتصاد",
     cooldowns: 5,
     envConfig: {
-        cooldownTime: 5000
+        cooldownTime: 7200000 // ساعتين
     }
 };
+
 module.exports.languages = {
-    
     "en": {
-        "cooldown": "You're done, come back later: %1 minute(s) %2 second(s)."
+        "cooldown": "هدوء يا بطل! تعال بعد %1 دقيقة و %2 ثانية."
     }
-}
+};
+
 module.exports.handleReply = async ({ event, api, handleReply, Currencies, getText }) => {
     const { threadID, messageID, senderID } = event;
     let data = (await Currencies.getData(senderID)).data || {};
-//random coins nhận được khi làm việc ít nhất 200
-var coinscn = Math.floor(Math.random() * 401) + 200; //random coins khi làm ở khu công nghiệp
-var coinsdv = Math.floor(Math.random() * 801) + 200; //random coins khi làm ở khu dịch vụ
-var coinsmd = Math.floor(Math.random() * 401) + 200; //random coins khi làm ở mỏ dầu
-var coinsq = Math.floor(Math.random() * 601) + 200; //random coins khi khai thác quặng
-var coinsdd = Math.floor(Math.random() * 201) + 200; //random coins khi đào đá
-var coinsdd1 = Math.floor(Math.random() * 801) + 200; //random coins khi đào đá
 
-//random things to do
-var rdcn = ['hiring staff', 'hotel administrator', 'at the power plant', 'restaurant chef', 'worker']; //random job when working in industrial park
-var work1 = rdcn[Math.floor(Math.random() * rdcn.length)];   
+    // أرباح عشوائية لكل وظيفة
+    var coinsIndustry = Math.floor(Math.random() * 401) + 200;
+    var coinsService = Math.floor(Math.random() * 801) + 200;
+    var coinsOil = Math.floor(Math.random() * 401) + 200;
+    var coinsOre = Math.floor(Math.random() * 601) + 200;
+    var coinsDigRock = Math.floor(Math.random() * 201) + 200;
+    var coinsDigRockVIP = Math.floor(Math.random() * 801) + 200;
+    var coinsDZ = Math.floor(Math.random() * 601) + 200;
 
-var rddv = ['plumber', 'neighbors air conditioner repair', 'multi-level sale', 'flyer distribution', 'shipper', 'computer repair', 'tour guide', 'breastfeeding' ]; //random work when working in the service area
-var work2 = rddv[Math.floor(Math.random() * rddv.length)]; 
+    // المهام
+    var industryJobs = ['توظيف الموظفين', 'مدير فندق', 'في محطة الكهرباء', 'شيف مطعم', 'عامل مصنع'];
+    var serviceJobs = ['سباك', 'تصليح مكيفات الجيران', 'مندوب مبيعات', 'توزيع منشورات', 'سائق شحن', 'تصليح كمبيوتر', 'مرشد سياحي', 'مساعد رضاعة']; 
+    var oilJobs = ['جمع 13 برميل نفط', 'جمع 8 براميل نفط', 'سرقة النفط', 'صب ماء في النفط وبيعه'];
+    var oreJobs = ['خام حديد', 'خام ذهب', 'خام فحم', 'خام رصاص', 'خام نحاس', 'خام نفط'];
+    var digRockJobs = ['ألماس', 'ذهب', 'فحم', 'زمرد', 'حديد', 'حجر عادي', 'كسول', 'حجر أزرق'];
+    var digRockVIPJobs = ['ضيف VIP', 'براءة اختراع', 'غريب', 'شاب عمره 23', 'ممول', 'رجل أعمال عمره 92', 'صبي عمره 12', 'رقاصة في التيك توك'];
+    var dzJobs = ['بائع زلابية في بوفاريك', 'بائع دجاج في ولاد فايت', 'موال في الجلفة', 'سراق في الحراش'];
 
-var rdmd = ['earn 13 barrels of oil', 'earn 8 barrels of oil', 'earn 9 barrels of oil', 'earn 8 barrels of oil', 'steal the oil', 'take water and pour it into oil and sell it']; //random job while working at an oil field
-var work3 = rdmd[Math.floor(Math.random() * rdmd.length)]; 
+    // اختيار المهام
+    var job1 = industryJobs[Math.floor(Math.random() * industryJobs.length)];
+    var job2 = serviceJobs[Math.floor(Math.random() * serviceJobs.length)];
+    var job3 = oilJobs[Math.floor(Math.random() * oilJobs.length)];
+    var job4 = oreJobs[Math.floor(Math.random() * oreJobs.length)];
+    var job5 = digRockJobs[Math.floor(Math.random() * digRockJobs.length)];
+    var job6 = digRockVIPJobs[Math.floor(Math.random() * digRockVIPJobs.length)];
+    var job8 = dzJobs[Math.floor(Math.random() * dzJobs.length)];
 
-var rdq = ['iron ore', 'gold ore', 'coal ore', 'lead ore', 'copper ore', 'oil ore']; //random job when mining ore
-var work4 = rdq[Math.floor(Math.random() * rdq.length)]; 
-
-var rddd = ['diamond', 'gold', 'coal', 'emerald', 'iron', 'ordinary stone', 'lazy', 'bluestone']; //random job when digging rock
-var work5 = rddd[Math.floor(Math.random() * rddd.length)]; 
-
-var rddd1 = ['vip guest', 'patent', 'stranger', '23-year-old fool', 'stranger', 'patron', '92-year-old tycoon', '12-year-old boyi']; //random work when digging rock
-var work6 = rddd1[Math.floor(Math.random() * rddd1.length)];
-
-
-var msg = "";
-    switch(handleReply.type) {
+    var msg = "";
+    switch (handleReply.type) {
         case "choosee": {
-            
-            switch(event.body) {
-                case "1": msg = `⚡️You are working ${work1} in the industrial zone and earn ${coinscn}$` ; Currencies.increaseMoney(event.senderID, coinscn); break;             
-                case "2": msg = `⚡️You are working ${work2} in the service area and earn ${coinsdv}$`; Currencies.increaseMoney(event.senderID, coinsdv); break;
-                case "3": msg = `⚡️You ${work3} at the open oil and sell ${coinsmd}$`; Currencies.increaseMoney(event.senderID, coinsmd); break;
-                case "4": msg = `⚡️You are mining ${work4} and earn ${coinsq}$`; Currencies.increaseMoney(event.senderID, coinsq); break;
-                case "5": msg = `⚡️You can dig ${work5} and earn ${coinsdd}$` ; Currencies.increaseMoney(event.senderID, coinsdd); break;
-                case "6": msg = `⚡️You choose ${work6} and given ${coinsdd1}$ if xxx 1 night, then you agree right away :)))`; Currencies.increaseMoney(event.senderID, coinsdd1); break;
-                case "7": msg = "⚡️ Coming soon..."; break; //add case if you want 
-                default: break;
-            };
-            const choose = parseInt(event.body);
-            if (isNaN(event.body)) return api.sendMessage("⚡️Please enter 1 con number", event.threadID, event.messageID);
-            if (choose > 7 || choose < 1) return api.sendMessage("⚡️Option is not on the list.", event.threadID, event.messageID); //thay số case vào số 7
-            api.unsendMessage(handleReply.messageID);
-            if (msg == "⚡️Chưa update...") {
-                msg = "⚡️Update soon...";
-            };
-            return api.sendMessage(`${msg}`, threadID, async () => {
-            data.work2Time = Date.now();
-            await Currencies.setData(senderID, { data });
-            
-        });
+            switch (event.body) {
+                case "1": 
+                    msg = `⚡️ اشتغلت ${job1} في المنطقة الصناعية وربحت ${coinsIndustry}$! شغل ممتاز!`; 
+                    await Currencies.increaseMoney(senderID, coinsIndustry); 
+                    break;             
+                case "2": 
+                    msg = `⚡️ اشتغلت ${job2} في خدمات المجتمع وربحت ${coinsService}$! عمل رائع!`; 
+                    await Currencies.increaseMoney(senderID, coinsService); 
+                    break;
+                case "3": 
+                    msg = `⚡️ انت تعمل ${job3} في حقل النفط وربحت ${coinsOil}$! دهب من البترول!`; 
+                    await Currencies.increaseMoney(senderID, coinsOil); 
+                    break;
+                case "4": 
+                    msg = `⚡️ تستخرج ${job4} من المناجم وربحت ${coinsOre}$! كنز ثمين!`; 
+                    await Currencies.increaseMoney(senderID, coinsOre); 
+                    break;
+                case "5": 
+                    msg = `⚡️ بدأت تحفر ${job5} وربحت ${coinsDigRock}$! حفار محترف!`; 
+                    await Currencies.increaseMoney(senderID, coinsDigRock); 
+                    break;
+                case "6": 
+                    msg = `⚡️ اخترت ${job6} وربحت ${coinsDigRockVIP}$! يا سلام على الحظ!`; 
+                    await Currencies.increaseMoney(senderID, coinsDigRockVIP); 
+                    break;
+                case "7": 
+                    msg = "⚡️ قريبًا... مفاجآت جديدة!"; 
+                    break;
+                case "8":
+                    msg = `⚡️ اشتغلت ${job8} وربحت ${coinsDZ}$! خدمة جزائرية أصيلة!`;
+                    await Currencies.increaseMoney(senderID, coinsDZ); 
+                    break;
+                default: 
+                    return api.sendMessage("⚡️ الرجاء إدخال رقم صحيح من القائمة.", threadID, messageID);
+            }
 
-    };
-}
-}
-module.exports.run = async ({  event, api, handleReply, Currencies, getText }) => {
+            const choice = parseInt(event.body);
+            if (isNaN(choice)) return api.sendMessage("⚡️ الرجاء إدخال رقم فقط!", threadID, messageID);
+            if (choice < 1 || choice > 8) return api.sendMessage("⚡️ الخيار غير موجود في القائمة.", threadID, messageID);
+
+            api.unsendMessage(handleReply.messageID);
+            return api.sendMessage(`${msg}`, threadID, async () => {
+                data.work2Time = Date.now();
+                await Currencies.setData(senderID, { data });
+            });
+        }
+    }
+};
+
+module.exports.run = async ({ event, api, handleReply, Currencies, getText }) => {
     const { threadID, messageID, senderID } = event;
     const cooldown = global.configModule[this.config.name].cooldownTime;
     let data = (await Currencies.getData(senderID)).data || {};
-    //cooldownTime for each receipt 
-    if (typeof data !== "undefined" && cooldown - (Date.now() - data.work2Time) > 0) {
 
+    if (typeof data !== "undefined" && cooldown - (Date.now() - data.work2Time) > 0) {
         var time = cooldown - (Date.now() - data.work2Time),
             minutes = Math.floor(time / 60000),
-            seconds = ((time % 60000) / 1000).toFixed(0); 
-        return api.sendMessage(getText("cooldown", minutes, (seconds < 10 ? "0" + seconds : seconds)), event.threadID, event.messageID);
+            seconds = ((time % 60000) / 1000).toFixed(0);
+        return api.sendMessage(getText("cooldown", minutes, (seconds < 10 ? "0" + seconds : seconds)), threadID, messageID);
+    } else {    
+        return api.sendMessage(
+`مرحباً بك في مركز الوظائف لكسب الكوينز 💰
+اختر وظيفتك بالرقم:
+1. العمل في المنطقة الصناعية 🏭
+2. خدمات المجتمع 🛠️
+3. العمل في حقل النفط 🛢️
+4. استخراج خامات المناجم ⛏️
+5. حفر الصخور 💎
+6. عمل خاص VIP ✨
+7. تحديثات قادمة...
+8. عمل في الجزائر 🇩🇿`,
+        threadID, (error, info) => {
+            data.work2Time = Date.now();
+            global.client.handleReply.push({
+                type: "choosee",
+                name: this.config.name,
+                author: senderID,
+                messageID: info.messageID
+            });
+        });
     }
-    else {    
-    return api.sendMessage("Coin Earn Job Center" +
-  /*công nghiệp*/ "\n\n1. work1" +
-  /*dịch vụ*/  "\n2. work2." +
-  /*Mỏ dầu*/ "\n3. work3." +
-  /*Quặng*/ "\n4. work4" +
-  /*Đào đá*/ "\n5. work5" +
-  /*cave*/    "\n6. work6" +
-                "\n7. Update soon..." +
-                "\n\n⚡️Please reply to the message and choose by number" //add case display here ||  \n[number]. [Career]" +
-            , event.threadID, (error, info) => {
-                data.work2Time = Date.now();
-        global.client.handleReply.push({
-            type: "choosee",
-            name: this.config.name,
-            author: event.senderID,
-            messageID: info.messageID
-          })  
-        })
-    }
-}
-/*
-@credit P-SeverTeam
-@Vui lòng không đổi credit!
-*/
+};
