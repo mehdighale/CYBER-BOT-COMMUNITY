@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "slot",
+    name: "سلوت",
     version: "1.0.1",
     hasPermssion: 0,
     credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
@@ -18,11 +18,11 @@ module.exports.languages = {
         "returnLose": "🎰 %1 | %2 | %3 🎰\nBạn đã thua và mất %4$"
     },
     "en": {
-        "missingInput": "[ SLOT ] The bet money must not be blank or a negative number",
-        "moneyBetNotEnough": "[ SLOT ] The money you betted is bigger than your balance!",
-        "limitBet": "[ SLOT ] Your bet is too low, the minimum is 50$",
-        "returnWin": "🎰 %1 | %2 | %3 🎰\nYou won with %4$",
-        "returnLose": "🎰 %1 | %2 | %3 🎰\nYou lost and loss %4$"
+        "missingInput": "[ SLOT ] يجب ألا يكون مبلغ الرهان فارغًا أو رقمًا سلبيًا",
+        "moneyBetNotEnough": "[ SLOT ] المال الذي شاركت به انت لا تملكه 😹!",
+        "limitBet": "[ SLOT ] يافقير😼اقل رصيد تقدر تشارك بيه هو 50$",
+        "returnWin": "🎰 %1 | %2 | %3 🎰\nلقد فزت ب%4$",
+        "returnLose": "🎰 %1 | %2 | %3 🎰\nلقد خسرت %4$"
     }
 }
 
@@ -33,9 +33,9 @@ module.exports.run = async function({ api, event, args, Currencies, getText }) {
     const moneyUser = (await getData(senderID)).money;
 
     var moneyBet = parseInt(args[0]);
-    if (isNaN(moneyBet) || moneyBet <= 0) return api.sendMessage(getText("missingInput"), threadID, messageID);
-	if (moneyBet > moneyUser) return api.sendMessage(getText("moneyBetNotEnough"), threadID, messageID);
-	if (moneyBet < 50) return api.sendMessage(getText("limitBet"), threadID, messageID);
+    if (isNaN(moneyBet) || moneyBet <= 0) return api.sendMessage(getText("فشل الادخال"), threadID, messageID);
+	if (moneyBet > moneyUser) return api.sendMessage(getText("يا فقير😹المال غير كافي"), threadID, messageID);
+	if (moneyBet < 50) return api.sendMessage(getText("الحد الأقصى للرهان"), threadID, messageID);
     var number = [], win = false;
     for (i = 0; i < 3; i++) number[i] = Math.floor(Math.random() * slotItems.length);
     if (number[0] == number[1] && number[1] == number[2]) {
