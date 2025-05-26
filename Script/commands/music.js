@@ -5,13 +5,13 @@ const ytSearch = require("yt-search");
 
 module.exports = {
   config: {
-    name: "music",
+    name: "تحميل",
     version: "1.0.3",
     hasPermssion: 0,
-    credits: "𝐂𝐘𝐁𝐄𝐑 ☢️_𖣘 -𝐁𝐎𝐓 ⚠️ 𝑻𝑬𝑨𝑴_ ☢️",
-    description: "Download YouTube song from keyword search and link",
-    commandCategory: "Media",
-    usages: "[songName] [type]",
+    credits: "يونو",
+    description: "تحميل أغنية أو فيديو من يوتيوب حسب الاسم",
+    commandCategory: "الوسائط",
+    usages: "[اسم الأغنية] [audio|video]",
     cooldowns: 5,
     dependencies: {
       "node-fetch": "",
@@ -34,7 +34,7 @@ module.exports = {
     }
 
     const processingMessage = await api.sendMessage(
-      "✅ Processing your request. Please wait...",
+      "⏳ جاري معالجة طلبك الجميل، لحظات بس ...",
       event.threadID,
       null,
       event.messageID
@@ -43,7 +43,7 @@ module.exports = {
     try {
       const searchResults = await ytSearch(songName);
       if (!searchResults || !searchResults.videos.length) {
-        throw new Error("No results found for your search query.");
+        throw new Error("ما لقيت نتائج لطلبك، جرّب اسم ثاني! 🥺");
       }
 
       const topResult = searchResults.videos[0];
@@ -84,9 +84,9 @@ module.exports = {
       await api.sendMessage(
         {
           attachment: fs.createReadStream(downloadPath),
-          body: `🖤 Title: ${topResult.title}\n\n Here is your ${
-            type === "audio" ? "audio" : "video"
-          } 🎧:`,
+          body: `🎵 العنوان: ${topResult.title}\n\nتفضل ${
+            type === "audio" ? "الصوت الجميل" : "الفيديو الرائع"
+          } كما طلبت! 🎧`,
         },
         event.threadID,
         () => {
@@ -96,9 +96,9 @@ module.exports = {
         event.messageID
       );
     } catch (error) {
-      console.error(`Failed to download and send song: ${error.message}`);
+      console.error(`فشل في التحميل: ${error.message}`);
       api.sendMessage(
-        `Failed to download song: ${error.message}`,
+        `عذرًا، فشل التحميل: ${error.message} 😔`,
         event.threadID,
         event.messageID
       );
